@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace GeneticAlgorithm
+namespace GeneticAlgorithm.Chromosomes
 {
     public class Chromosome
     {

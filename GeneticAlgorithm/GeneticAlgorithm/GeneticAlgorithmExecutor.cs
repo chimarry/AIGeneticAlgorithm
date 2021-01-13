@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GeneticAlgorithm
+namespace GeneticAlgorithm.GeneticAlgorithm
 {
     public class GeneticAlgorithmExecutor
     {

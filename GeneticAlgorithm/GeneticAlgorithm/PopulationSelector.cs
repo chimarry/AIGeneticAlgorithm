@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using GeneticAlgorithm.Chromosomes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GeneticAlgorithm
+namespace GeneticAlgorithm.GeneticAlgorithm
 {
     public class PopulationSelector
     {

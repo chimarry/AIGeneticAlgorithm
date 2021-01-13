@@ -1,4 +1,4 @@
-﻿namespace GeneticAlgorithm
+﻿namespace GeneticAlgorithm.GeneticAlgorithm
 {
     public class GeneticAlgorithmConfiguration
     {
