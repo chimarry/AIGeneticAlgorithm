@@ -22,12 +22,16 @@ namespace GeneticAlgorithm.GeneticAlgorithm
             Random yRandom = new Random();
             List<Chromosome> population = new List<Chromosome>(populationSize);
             for (int i = 0; i < populationSize; ++i)
-            {
-                double x = xRandom.NextDouble(Constants.XLower, Constants.XUpper);
-                double y = yRandom.NextDouble(Constants.YLower, Constants.YUpper);
-                population.Add(new Chromosome(x, y));
-            }
+                population.Add(GenerateChromosome(xRandom, yRandom));
+
             return population;
+        }
+
+        public static Chromosome GenerateChromosome(Random xRandom, Random yRandom)
+        {
+            double x = xRandom.NextDouble(Constants.XLower, Constants.XUpper);
+            double y = yRandom.NextDouble(Constants.YLower, Constants.YUpper);
+            return new Chromosome(x, y);
         }
 
         public List<Chromosome> SelectFittestIndividuals(List<Chromosome> population)
