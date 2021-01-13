@@ -32,6 +32,34 @@ namespace GeneticAlgorithm
             return population;
         }
 
-        public 
+        public List<Chromosome> SelectFittestIndividuals(List<Chromosome> population)
+        {
+            List<Chromosome> individuals = population.ToList();
+            List<Chromosome> selectedIndividuals = new List<Chromosome>();
+
+            double max = population.Max(x => x.FittnessValue);
+            double min = population.Min(x => x.FittnessValue);
+
+            individuals = individuals.Select(chromosome => (chromosome, max - chromosome.FittnessValue))
+                                                     .OrderByDescending(x => x.Item2)
+                                                     .Select(x => x.chromosome)
+                                                     .ToList();
+
+            selectedIndividuals.AddRange(individuals.Take(eliteCount));
+
+            individuals = individuals.Skip(eliteCount).ToList();
+
+            Random selectionRandom = new Random();
+            foreach (Chromosome chromosome in individuals)
+            {
+                double randomProbability = selectionRandom.NextDouble();
+                double probabilityToBeSelected = (chromosome.FittnessValue - min) / (double)(max - min);
+                if (probabilityToBeSelected > randomProbability)
+                    selectedIndividuals.Add(chromosome);
+            }
+            return selectedIndividuals.AsParallel()
+                                      .Distinct(new ChromosomeEqualityComparer())
+                                      .ToList();
+        }
     }
 }
