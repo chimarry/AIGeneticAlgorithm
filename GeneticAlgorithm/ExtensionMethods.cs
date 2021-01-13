@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Text;
 
 namespace GeneticAlgorithm
@@ -19,5 +20,11 @@ namespace GeneticAlgorithm
             bits.CopyTo(array, 0);
             return array[0];
         }
+    }
+
+    public static class RandomExtensionMethods
+    {
+        public static double NextDouble(this Random random, int lower, int upper)
+            => Math.Round(random.NextDouble() * (upper - lower) + lower, Constants.Precision);
     }
 }

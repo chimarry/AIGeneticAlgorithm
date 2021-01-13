@@ -5,19 +5,19 @@ namespace GeneticAlgorithm
 {
     public class Chromosome
     {
+        public double FittnessValue { get; private set; }
+
+        public static readonly (int lower, int upper) XLimit = (Constants.XLower, Constants.XUpper);
+
+        public static readonly (int lower, int upper) YLimit = (Constants.YLower, Constants.YUpper);
+
         public BitArray XGenes { get; set; }
 
         public BitArray YGenes { get; set; }
 
-        public double XGenesAsRealNumber { get; set; }
+        public double XGenesAsRealNumber { get; private set; }
 
-        public double YGenesAsRealNumber { get; set; }
-
-        public int Precision { get; set; } = 3;
-
-        public (int lower, int upper) XLimit { get; set; } = (-3, 3);
-
-        public (int lower, int upper) YLimit { get; set; } = (-4, 4);
+        public double YGenesAsRealNumber { get; private set; }
 
         public (int x, int y) Lenght { get; private set; }
 
@@ -26,6 +26,7 @@ namespace GeneticAlgorithm
             SetLenghts();
             FromRealNumber(x, y);
             (XGenesAsRealNumber, YGenesAsRealNumber) = ToRealNumber();
+            FittnessValue = MathUtil.CalculateFunction(x, y);
         }
 
 
@@ -45,16 +46,16 @@ namespace GeneticAlgorithm
         public (double x, double y) ToRealNumber()
         {
             static double getDouble(int number, (int upper, int lower) limit, int n)
-                 => limit.upper + ((limit.upper - limit.lower) / (Math.Pow(2, n) - 1)) * number;
+                 => Math.Round(limit.upper + ((limit.upper - limit.lower) / (Math.Pow(2, n) - 1)) * number, Constants.Precision);
 
             return (getDouble(XGenes.ToInt(), XLimit, Lenght.x), getDouble(YGenes.ToInt(), YLimit, Lenght.y));
         }
 
         private void SetLenghts()
         {
-            int calculateLenghtWithLog(int upper, int lower)
+            static int calculateLenghtWithLog(int upper, int lower)
             {
-                int precision = (int)Math.Pow(10, Precision);
+                int precision = (int)Math.Pow(10, Constants.ConversionPrecision);
                 return (int)Math.Ceiling(Math.Log2((upper - lower) * precision + 1));
             }
 
