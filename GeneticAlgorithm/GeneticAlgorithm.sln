@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithm", "GeneticAlgorithm.csproj", "{C4F52761-17CB-4931-8F30-9F65F3710100}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticAlgorithm", "GeneticAlgorithm.csproj", "{C4F52761-17CB-4931-8F30-9F65F3710100}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithmTests", "..\GeneticAlgorithmTests\GeneticAlgorithmTests.csproj", "{239A68AB-F17F-44C6-91D6-83B692797D44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C4F52761-17CB-4931-8F30-9F65F3710100}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4F52761-17CB-4931-8F30-9F65F3710100}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4F52761-17CB-4931-8F30-9F65F3710100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{239A68AB-F17F-44C6-91D6-83B692797D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{239A68AB-F17F-44C6-91D6-83B692797D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{239A68AB-F17F-44C6-91D6-83B692797D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{239A68AB-F17F-44C6-91D6-83B692797D44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,10 +9,11 @@ namespace GlobalMinimum.GeneticAlgorithm
     {
         public static void Main(string[] args)
         {
-            GeneticAlgorithmConfiguration configuration = new GeneticAlgorithmConfiguration(eliteCount: 10, populationSize:200, iterationCount: 100);
+            GeneticAlgorithmConfiguration configuration = new GeneticAlgorithmConfiguration(eliteCount: 10, populationSize: 200, iterationCount: 100);
             GeneticAlgorithmExecutor executor = new GeneticAlgorithmExecutor(configuration);
             Chromosome chromosome = executor.Execute();
             Console.WriteLine(chromosome);
+
             //    double number = 1.214234;
             //    byte[] data = BitConverter.GetBytes(number);
             //    BitArray array = new BitArray(data);
