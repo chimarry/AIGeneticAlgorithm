@@ -1,5 +1,5 @@
-﻿using GlobalMinimum.GeneticAlgorithm.Chromosomes;
-using GlobalMinimum.GeneticAlgorithm.GeneticAlgorithm;
+﻿using GlobalMaximum;
+using GlobalMaximum.GeneticAlgorithm;
 using System;
 using System.Collections;
 
@@ -9,7 +9,7 @@ namespace GlobalMinimum.GeneticAlgorithm
     {
         public static void Main(string[] args)
         {
-            GeneticAlgorithmConfiguration configuration = new GeneticAlgorithmConfiguration(eliteCount: 10, populationSize: 200, iterationCount: 100);
+            GeneticAlgorithmConfiguration configuration = new GeneticAlgorithmConfiguration(eliteCount: 10, populationSize: 100, iterationCount: 10000);
             GeneticAlgorithmExecutor executor = new GeneticAlgorithmExecutor(configuration);
             Chromosome chromosome = executor.Execute();
             Console.WriteLine(chromosome);

@@ -17,4 +17,13 @@
     <ProjectReference Include="..\GeneticAlgorithm\GeneticAlgorithm.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="GlobalMaximum.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="GlobalMinimum.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
