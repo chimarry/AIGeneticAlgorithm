@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace GeneticAlgorithm.Chromosomes
+namespace GlobalMinimum.GeneticAlgorithm.Chromosomes
 {
     public class Chromosome
     {
@@ -72,6 +72,11 @@ namespace GeneticAlgorithm.Chromosomes
             }
 
             Lenght = (calculateLenghtWithLog(XLimit.upper, XLimit.lower), calculateLenghtWithLog(YLimit.upper, YLimit.lower));
+        }
+
+        public override string ToString()
+        {
+            return $"(x, y) = ({XGenesAsRealNumber}, {YGenesAsRealNumber}) with function value = {FittnessValue}.";
         }
     }
 }

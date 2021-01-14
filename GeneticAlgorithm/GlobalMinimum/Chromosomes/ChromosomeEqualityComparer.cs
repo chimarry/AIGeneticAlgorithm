@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace GeneticAlgorithm.Chromosomes
+namespace GlobalMinimum.GeneticAlgorithm.Chromosomes
 {
     public class ChromosomeEqualityComparer : IEqualityComparer<Chromosome>
     {

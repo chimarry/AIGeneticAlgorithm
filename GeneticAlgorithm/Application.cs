@@ -1,15 +1,18 @@
-﻿using GeneticAlgorithm.GeneticAlgorithm;
+﻿using GlobalMinimum.GeneticAlgorithm.Chromosomes;
+using GlobalMinimum.GeneticAlgorithm.GeneticAlgorithm;
 using System;
 using System.Collections;
 
-namespace GeneticAlgorithm
+namespace GlobalMinimum.GeneticAlgorithm
 {
     public class Application
     {
         public static void Main(string[] args)
         {
-            PopulationSelector populationSelector = new PopulationSelector(30, 4);
-            populationSelector.GeneratePopulation();
+            GeneticAlgorithmConfiguration configuration = new GeneticAlgorithmConfiguration(eliteCount: 10, populationSize:200, iterationCount: 100);
+            GeneticAlgorithmExecutor executor = new GeneticAlgorithmExecutor(configuration);
+            Chromosome chromosome = executor.Execute();
+            Console.WriteLine(chromosome);
             //    double number = 1.214234;
             //    byte[] data = BitConverter.GetBytes(number);
             //    BitArray array = new BitArray(data);

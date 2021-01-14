@@ -1,9 +1,9 @@
-﻿using GeneticAlgorithm.Chromosomes;
+﻿using GlobalMinimum.GeneticAlgorithm.Chromosomes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GeneticAlgorithm.GeneticAlgorithm
+namespace GlobalMinimum.GeneticAlgorithm.GeneticAlgorithm
 {
     public class PopulationSelector
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GeneticAlgorithm
+namespace GlobalMinimum.GeneticAlgorithm
 {
     public static class MathUtil
     {

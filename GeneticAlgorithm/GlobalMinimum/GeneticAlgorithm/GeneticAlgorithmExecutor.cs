@@ -1,10 +1,10 @@
-﻿using GeneticAlgorithm.Chromosomes;
+﻿using GlobalMinimum.GeneticAlgorithm.Chromosomes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GeneticAlgorithm.GeneticAlgorithm
+namespace GlobalMinimum.GeneticAlgorithm.GeneticAlgorithm
 {
     public class GeneticAlgorithmExecutor
     {
@@ -14,7 +14,7 @@ namespace GeneticAlgorithm.GeneticAlgorithm
         private readonly GeneticAlgorithmConfiguration configuration;
         private readonly CrossoverPoint crossoverPoint;
 
-        public GeneticAlgorithmExecutor(GeneticAlgorithmConfiguration configuration, CrossoverPoint crossoverPoint)
+        public GeneticAlgorithmExecutor(GeneticAlgorithmConfiguration configuration, CrossoverPoint crossoverPoint = CrossoverPoint.One)
         {
             this.configuration = configuration;
             this.crossoverPoint = crossoverPoint;
@@ -31,7 +31,7 @@ namespace GeneticAlgorithm.GeneticAlgorithm
 
                 population = newPopulation;
             }
-            return population.Min();
+            return population.OrderBy(x => x.FittnessValue).FirstOrDefault();
         }
 
         private List<Chromosome> Evolve(List<Chromosome> selectedIndividuals)
@@ -59,7 +59,7 @@ namespace GeneticAlgorithm.GeneticAlgorithm
                 newPopulation.AddTwo(firstParent, secondParent);
 
                 double randomProbability = crossoverRandom.NextDouble();
-                if (randomProbability > configuration.CrossoverProbability)
+                if (randomProbability < configuration.CrossoverProbability)
                 {
                     (Chromosome firstChild, Chromosome secondChild) =
                         Crossover(firstParent, secondParent, crossoverPointXRandom, crossoverPointYRandom, crossoverPoint);

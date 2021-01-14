@@ -1,12 +1,12 @@
-﻿using GeneticAlgorithm.Chromosomes;
-using GeneticAlgorithm.GeneticAlgorithm;
+﻿using GlobalMinimum.GeneticAlgorithm.Chromosomes;
+using GlobalMinimum.GeneticAlgorithm.GeneticAlgorithm;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GeneticAlgorithm
+namespace GlobalMinimum.GeneticAlgorithm
 {
     public static class BitArrayExtensionMethods
     {

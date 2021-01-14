@@ -1,4 +1,4 @@
-﻿namespace GeneticAlgorithm
+﻿namespace GlobalMinimum.GeneticAlgorithm
 {
     public static class Constants
     {
