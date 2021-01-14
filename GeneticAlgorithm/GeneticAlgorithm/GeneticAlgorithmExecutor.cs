@@ -3,38 +3,35 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GeneticAlgorithm.GeneticAlgorithm
 {
     public class GeneticAlgorithmExecutor
     {
-        public delegate (Chromosome, Chromosome) CrossoverFunction(Chromosome firstParent, Chromosome secondParend, int crossoverIndex);
+        public enum CrossoverPoint { One, Two }
 
-        private readonly CrossoverFunction crossoverFunction;
         private readonly PopulationSelector populationSelector;
         private readonly GeneticAlgorithmConfiguration configuration;
+        private readonly CrossoverPoint crossoverPoint;
 
-        public GeneticAlgorithmExecutor(GeneticAlgorithmConfiguration configuration, CrossoverFunction crossoverFunction)
+        public GeneticAlgorithmExecutor(GeneticAlgorithmConfiguration configuration, CrossoverPoint crossoverPoint)
         {
             this.configuration = configuration;
-            this.crossoverFunction = crossoverFunction;
+            this.crossoverPoint = crossoverPoint;
             populationSelector = new PopulationSelector(configuration.PopulationSize, configuration.EliteCount);
         }
 
-        public void Execute()
+        public Chromosome Execute()
         {
             List<Chromosome> population = populationSelector.GeneratePopulation();
             for (int i = 0; i < configuration.IterationCount; ++i)
             {
                 List<Chromosome> selectedIndividuals = populationSelector.SelectFittestIndividuals(population);
                 List<Chromosome> newPopulation = Evolve(selectedIndividuals);
-                /* if (newPopulation.Any(x => x.Root.GetValue() == configuration.Result))
-                     return newPopulation.FirstOrDefault(x => x.Root.GetValue() == configuration.Result);
-                 population = newPopulation;
-             }
-             return null;*/
+
+                population = newPopulation;
             }
+            return population.Min();
         }
 
         private List<Chromosome> Evolve(List<Chromosome> selectedIndividuals)
@@ -49,62 +46,71 @@ namespace GeneticAlgorithm.GeneticAlgorithm
             List<Chromosome> newPopulation = new List<Chromosome>();
 
             Random crossoverRandom = new Random();
-            Random mutationRandom = new Random();
+            Random crossoverPointXRandom = new Random();
+            Random crossoverPointYRandom = new Random();
 
+            Random mutationRandom = new Random();
+            Random mutationPointXRandom = new Random();
+            Random mutationPointYRandom = new Random();
+
+            // Do crossover
             foreach ((Chromosome firstParent, Chromosome secondParent) in pairs)
             {
+                newPopulation.AddTwo(firstParent, secondParent);
+
                 double randomProbability = crossoverRandom.NextDouble();
                 if (randomProbability > configuration.CrossoverProbability)
                 {
-                    // TODO: Crossover
-                    /*MathExpressionTree firstCopy = firstParent.Copy();
-                    MathExpressionTree secondCopy = secondParent.Copy();
-                    Crossover(firstCopy, secondCopy);
-                    newPopulation.AddTwo(firstCopy, secondCopy);*/
+                    (Chromosome firstChild, Chromosome secondChild) =
+                        Crossover(firstParent, secondParent, crossoverPointXRandom, crossoverPointYRandom, crossoverPoint);
+                    newPopulation.AddTwo(firstChild, secondChild);
                 }
             }
-            pairs.ForEach(x =>
-            {
-                newPopulation.AddTwo(x.Item1, x.Item2);
-            });
 
+            // Do mutation
             foreach (Chromosome chromosome in newPopulation)
             {
                 double randomProbability = mutationRandom.NextDouble();
                 if (randomProbability < configuration.MutationProbability)
-                {
-                    // TODO: Mutate(chromosome);
-                }
+                    Mutate(chromosome, mutationPointXRandom, mutationPointYRandom);
             }
 
-            List<Chromosome> distinctExpressions = newPopulation.Distinct(new ChromosomeEqualityComparer())
+            List<Chromosome> distinctIndividuals = newPopulation.Distinct(new ChromosomeEqualityComparer())
                                                                 .ToList();
 
-            while (distinctExpressions.Count < configuration.PopulationSize)
-                distinctExpressions.Add(PopulationSelector.GenerateChromosome(new Random(), new Random());
+            while (distinctIndividuals.Count < configuration.PopulationSize)
+                distinctIndividuals.Add(PopulationSelector.GenerateChromosome(new Random(), new Random()));
 
-            IEnumerable<Chromosome> elite = distinctExpressions.OrderBy(x => x.FittnessValue)
+            IEnumerable<Chromosome> elite = distinctIndividuals.OrderBy(x => x.FittnessValue)
                                                                .Take(configuration.EliteCount);
 
-            return elite.Concat(distinctExpressions)
+            return elite.Concat(distinctIndividuals)
                         .Take(configuration.PopulationSize)
                         .ToList();
         }
 
-        private (Chromosome, Chromosome) Crossover(Chromosome first, Chromosome second, int crossoverPoint)
+        private (Chromosome, Chromosome) Crossover(Chromosome first, Chromosome second, Random xRandom, Random yRandom, CrossoverPoint type)
         {
-            (BitArray,BitArray) CrossoverByAxis()
+            (BitArray, BitArray) crossoverByAxis(BitArray firstParameter, BitArray secondParameter, Random random)
             {
-
+                int begin = random.Next(0, firstParameter.Length);
+                int end = firstParameter.Length;
+                if (type == CrossoverPoint.Two)
+                    end = random.Next(0, firstParameter.Length);
+                return firstParameter.Crossover(secondParameter, begin, end);
             }
+            (BitArray childOneX, BitArray childTwoX) = crossoverByAxis(first.XGenes, second.XGenes, xRandom);
+            (BitArray childOneY, BitArray childTwoY) = crossoverByAxis(first.YGenes, second.YGenes, yRandom);
+            return (new Chromosome(childOneX, childOneY), new Chromosome(childTwoX, childTwoY));
         }
 
-        private void Mutate(MathExpressionTree expression)
+        private void Mutate(Chromosome chromosome, Random xRandom, Random yRandom)
         {
-            MathExpressionNode randomNode = expression.GetRandomNode();
-            randomNode.SubstiteValue(randomNode.IsLeaf ?
-                                           stohasticGenerator.GetRandomOperand()
-                                           : stohasticGenerator.GetRandomOperator(randomNode.LeftChild, randomNode.RightChild));
+            int indexX = xRandom.Next(0, chromosome.Lenght.x);
+            int indexY = yRandom.Next(0, chromosome.Lenght.y);
+
+            chromosome.XGenes[indexX] = !chromosome.XGenes[indexX];
+            chromosome.YGenes[indexY] = !chromosome.YGenes[indexY];
         }
     }
 }

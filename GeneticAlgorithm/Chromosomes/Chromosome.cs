@@ -25,10 +25,22 @@ namespace GeneticAlgorithm.Chromosomes
         {
             SetLenghts();
             FromRealNumber(x, y);
-            (XGenesAsRealNumber, YGenesAsRealNumber) = ToRealNumber();
-            FittnessValue = MathUtil.CalculateFunction(x, y);
+            UpdateValues();
         }
 
+        public Chromosome(BitArray childTwoX, BitArray childTwoY)
+        {
+            XGenes = childTwoX;
+            YGenes = childTwoY;
+            Lenght = (childTwoX.Length, childTwoY.Length);
+            UpdateValues();
+        }
+
+        public void UpdateValues()
+        {
+            (XGenesAsRealNumber, YGenesAsRealNumber) = ToRealNumber();
+            FittnessValue = MathUtil.CalculateFunction(XGenesAsRealNumber, YGenesAsRealNumber);
+        }
 
         public void FromRealNumber(double x, double y)
         {

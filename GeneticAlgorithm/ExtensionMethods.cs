@@ -24,6 +24,28 @@ namespace GeneticAlgorithm
             bits.CopyTo(array, 0);
             return array[0];
         }
+
+        public static (BitArray childOne, BitArray childTwo) Crossover(this BitArray parentOne, BitArray parentTwo, int begin, int end)
+        {
+            BitArray childOne = new BitArray(parentOne.Length);
+            BitArray childTwo = new BitArray(parentTwo.Length);
+            for (int i = 0; i < begin; ++i)
+            {
+                childOne[i] = parentOne[i];
+                childTwo[i] = parentTwo[i];
+            }
+            for (int i = begin; i < end; ++i)
+            {
+                childOne[i] = parentTwo[i];
+                childTwo[i] = parentOne[i];
+            }
+            for (int i = end; i < parentOne.Length; ++i)
+            {
+                childOne[i] = parentOne[i];
+                childTwo[i] = parentTwo[i];
+            }
+            return (childOne, childTwo);
+        }
     }
 
     public static class RandomExtensionMethods
