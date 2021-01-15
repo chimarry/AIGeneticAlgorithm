@@ -75,16 +75,17 @@ namespace GlobalMinimum.GeneticAlgorithm.GeneticAlgorithm
                     Mutate(chromosome, mutationPointXRandom, mutationPointYRandom);
             }
 
-            List<Chromosome> distinctIndividuals = newPopulation.Distinct(new ChromosomeEqualityComparer())
+            List<Chromosome> distinctValidIndividuals = newPopulation.Where(x => x.IsValid())
+                                                                .Distinct(new ChromosomeEqualityComparer())
                                                                 .ToList();
 
-            while (distinctIndividuals.Count < configuration.PopulationSize)
-                distinctIndividuals.Add(PopulationSelector.GenerateChromosome(new Random(), new Random()));
+            while (distinctValidIndividuals.Count < configuration.PopulationSize)
+                distinctValidIndividuals.Add(PopulationSelector.GenerateChromosome(new Random(), new Random()));
 
-            IEnumerable<Chromosome> elite = distinctIndividuals.OrderBy(x => x.FittnessValue)
+            IEnumerable<Chromosome> elite = distinctValidIndividuals.OrderBy(x => x.FittnessValue)
                                                                .Take(configuration.EliteCount);
 
-            return elite.Concat(distinctIndividuals)
+            return elite.Concat(distinctValidIndividuals)
                         .Take(configuration.PopulationSize)
                         .ToList();
         }

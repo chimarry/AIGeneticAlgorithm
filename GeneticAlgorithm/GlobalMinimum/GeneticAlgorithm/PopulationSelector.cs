@@ -55,7 +55,7 @@ namespace GlobalMinimum.GeneticAlgorithm.GeneticAlgorithm
             foreach (Chromosome chromosome in individuals)
             {
                 double randomProbability = selectionRandom.NextDouble();
-                double probabilityToBeSelected = (chromosome.FittnessValue - min) / (double)(max - min);
+                double probabilityToBeSelected = Math.Abs((max - chromosome.FittnessValue - min) / (double)(max - min));
                 if (probabilityToBeSelected > randomProbability)
                     selectedIndividuals.Add(chromosome);
             }

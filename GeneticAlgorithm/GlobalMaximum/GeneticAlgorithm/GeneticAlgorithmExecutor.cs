@@ -71,7 +71,8 @@ namespace GlobalMaximum.GeneticAlgorithm
                     Mutate(chromosome, mutationPointRandom);
             }
 
-            List<Chromosome> distinctIndividuals = newPopulation.Distinct(new ChromosomeEqualityComparer())
+            List<Chromosome> distinctIndividuals = newPopulation.Where(x => x.IsValid())
+                                                                .Distinct(new ChromosomeEqualityComparer())
                                                                 .ToList();
 
             while (distinctIndividuals.Count < configuration.PopulationSize)

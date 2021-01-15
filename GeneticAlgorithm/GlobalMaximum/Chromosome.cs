@@ -37,6 +37,8 @@ namespace GlobalMaximum
             FittnessValue = MathUtil.CalculateFunction(GenesAsRealNumber);
         }
 
+        public bool IsValid() => GenesAsRealNumber < Constants.YUpper && GenesAsRealNumber > Constants.YLower;
+
         public void FromRealNumber(double y)
         {
             static int convertToInt(double number, (int upper, int lower) limit, int n)

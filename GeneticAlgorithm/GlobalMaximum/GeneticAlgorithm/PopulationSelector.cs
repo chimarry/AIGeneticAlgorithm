@@ -52,7 +52,7 @@ namespace GlobalMaximum.GeneticAlgorithm
             foreach (Chromosome chromosome in individuals)
             {
                 double randomProbability = selectionRandom.NextDouble();
-                double probabilityToBeSelected = (chromosome.FittnessValue - min) / (double)(max - min);
+                double probabilityToBeSelected = Math.Abs((chromosome.FittnessValue - 2*min) / (double)(max - min));
                 if (probabilityToBeSelected > randomProbability)
                     selectedIndividuals.Add(chromosome);
             }

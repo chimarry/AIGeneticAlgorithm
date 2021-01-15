@@ -42,6 +42,9 @@ namespace GlobalMinimum.GeneticAlgorithm.Chromosomes
             FittnessValue = MathUtil.CalculateFunction(XGenesAsRealNumber, YGenesAsRealNumber);
         }
 
+        public bool IsValid() => XGenesAsRealNumber < Constants.XUpper && XGenesAsRealNumber > Constants.XLower
+                                && YGenesAsRealNumber < Constants.YUpper && YGenesAsRealNumber > Constants.YLower;
+
         public void FromRealNumber(double x, double y)
         {
             static int convertToInt(double number, (int upper, int lower) limit, int n)
